@@ -24,4 +24,10 @@ postRouter.get(
   paramResponder(postController.fetchPost)
 )
 
+postRouter.delete(
+  "/:postId",
+  tokenMiddleware.validateToken(undefined, "params"),
+  paramResponder(postController.deletePost)
+)
+
 module.exports = postRouter

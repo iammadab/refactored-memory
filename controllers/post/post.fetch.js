@@ -13,7 +13,6 @@ const fetchPost = async (data) => {
     return { status: 400, code: "BAD_REQUEST_ERROR", errors: validationResult.error }
 
   data = validationResult.value
-  console.log(data)
 
   const post = await postService.fetchPostById(data.postId)
   if(!post)

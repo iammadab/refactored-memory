@@ -24,3 +24,11 @@ exports.fetchPostById = async (id) => {
     return { error: true, code: "ERROR_FETCHING_POST" }
   }
 }
+
+exports.deletePostById = async (id) => {
+  try {
+    return await Post.deleteOne({ _id: id })
+  } catch (error){
+    return { error: true, code: "ERROR_DELETING_POST" }
+  }
+}
