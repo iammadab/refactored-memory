@@ -19,8 +19,6 @@ const loginUser = async (data) => {
 
   // Fetch the user by email
   const user = await userService.findUserByEmail(email)
-  console.log(user)
-  console.log(user.password)
   if(!user)
     return { status: 403, code: "USER_NOT_FOUND" }
 
