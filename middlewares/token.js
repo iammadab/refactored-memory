@@ -26,8 +26,6 @@ exports.validateToken = (store = "body") => (req, res, next) => {
     })
 
   const token = tokenHeader.slice(scheme.length, tokenHeader.length).trimLeft()
-  console.log(tokenHeader)
-  console.log(token)
 
   verifyToken()
     .then(attachUserInfo)
