@@ -30,4 +30,10 @@ postRouter.delete(
   paramResponder(postController.deletePost)
 )
 
+postRouter.put(
+  "/",
+  tokenMiddleware.validateToken(),
+  bodyResponder(postController.updatePost)
+)
+
 module.exports = postRouter

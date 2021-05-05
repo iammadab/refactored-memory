@@ -16,9 +16,9 @@ const deletePost = async (data) => {
     return { status: 400, code: "BAD_REQUEST_ERROR", errors: validationResult.error }
 
   data = validationResult.value
-  console.log(data)
 
-  const post = await postService.deletePostById(data.postId)
+  // TODO: You can only delete your own post
+  const post = await postService.deleteUserPost(data.postId, data.user._id)
   if(post.deletedCount == 0)
     return { status: 404, code: "POST_NOT_FOUND" }
 

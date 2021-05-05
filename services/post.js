@@ -9,6 +9,17 @@ exports.createPost = async (data) => {
   }
 }
 
+exports.updatePost = async (data) => {
+  try {
+    return await Post.updateOne(
+      { _id: data.id, user: data.user },
+      { body: data.body, images: data.images }
+    )
+  } catch(error) {
+    return { error: true, code: "ERROR_UPDATING_POST" }
+  }
+}
+
 exports.fetchUserPosts = async (id) => {
   try {
     return await Post.find({ user: id })
@@ -25,9 +36,9 @@ exports.fetchPostById = async (id) => {
   }
 }
 
-exports.deletePostById = async (id) => {
+exports.deleteUserPost = async (id, userId) => {
   try {
-    return await Post.deleteOne({ _id: id })
+    return await Post.deleteOne({ _id: id, user: userId })
   } catch (error){
     return { error: true, code: "ERROR_DELETING_POST" }
   }
