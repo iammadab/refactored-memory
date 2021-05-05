@@ -1,4 +1,4 @@
-const File = require("./models/file")
+const File = require("../models/file")
 
 exports.createFile = async (data) => {
   try {
