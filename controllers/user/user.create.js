@@ -1,5 +1,6 @@
 const argon2 = require("argon2")
 const userService = require("../../services/user")
+const loginUser = require("./user.login")
 
 const joi = require("joi")
 
@@ -36,7 +37,16 @@ const createUser = async (data) => {
   if(!user || user.error)
     return { status: 500, code: "ERROR_CREATING_USER" }
 
-  return { status: 200, code: "USER_CREATED" }
+  // Login the user
+  let userLoginResult = await loginUser({ email, password })
+
+  // If the login was not successful, abort
+  // Just report signup successfull
+  if(userLoginResult.status != 200)
+    userLoginResult = {}
+
+  // Pass the result of login, but overide status and code
+  return { ...userLoginResult, status: 200, code: "USER_CREATED" }
 
 }
 
