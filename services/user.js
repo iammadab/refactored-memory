@@ -16,3 +16,11 @@ exports.findUserByEmail = async (email) => {
     return { error: true, code: "ERROR_FETCHING_USER" }
   }
 }
+
+exports.findUserById = async (id) => {
+  try {
+    return await User.findOne({ id })
+  } catch (error){
+    return { error: true, code: "ERROR_FETCHING_USER" }
+  }
+}
