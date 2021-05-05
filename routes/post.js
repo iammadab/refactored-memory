@@ -26,7 +26,7 @@ postRouter.get(
 
 postRouter.delete(
   "/:postId",
-  tokenMiddleware.validateToken(undefined, "params"),
+  tokenMiddleware.validateToken("params"),
   paramResponder(postController.deletePost)
 )
 
