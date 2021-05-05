@@ -8,7 +8,7 @@ const userService = require("../services/user")
 // Fetches the user based on token
 // Attaches user to request object
 // Handle any error that pops up
-exports.validateToken = (tokenName = "token") => (req, res, next) => {
+exports.validateToken = (tokenName = "token", store = "body") => (req, res, next) => {
 
   const tokenValidator = joi.object({
     [tokenName]: joi.string().required()
@@ -42,7 +42,7 @@ exports.validateToken = (tokenName = "token") => (req, res, next) => {
       })
     }
 
-    req.body.user = user
+    req[store].user = user
   }
 
   function handleErrors(error){
