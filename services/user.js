@@ -19,7 +19,7 @@ exports.findUserByEmail = async (email) => {
 
 exports.findUserById = async (id) => {
   try {
-    return await User.findOne({ id })
+    return await User.findOne({ _id: id })
   } catch (error){
     return { error: true, code: "ERROR_FETCHING_USER" }
   }

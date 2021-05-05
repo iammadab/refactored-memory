@@ -1,3 +1,5 @@
+const postService = require("../services/post.service")
+
 const createPost = async (data) => {
 
 }
