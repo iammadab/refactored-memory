@@ -8,20 +8,26 @@ const userService = require("../services/user")
 // Fetches the user based on token
 // Attaches user to request object
 // Handle any error that pops up
-exports.validateToken = (tokenName = "token", store = "body") => (req, res, next) => {
+exports.validateToken = (store = "body") => (req, res, next) => {
 
-  const tokenValidator = joi.object({
-    [tokenName]: joi.string().required()
-  }).options({ abortEarly: false }).unknown(true)
+  const tokenHeader = req.headers["authorization"]
+  const scheme = "Bearer "
 
-  const validationResult = tokenValidator.validate(req.body)
-
-  if(validationResult.error)
+  if(!tokenHeader)
     return res.status(400).json({
       status: 400,
-      code: "BAD_REQUEST_BODY",
-      errors: validationResult.error
+      code: "TOKEN_NOT_FOUND" 
     })
+
+  if(!tokenHeader.startsWith(scheme))
+    return res.status(401).json({
+      status: 401,
+      code: "INVALID_AUTHORIZATION_SCHEME"
+    })
+
+  const token = tokenHeader.slice(scheme.length, tokenHeader.length).trimLeft()
+  console.log(tokenHeader)
+  console.log(token)
 
   verifyToken()
     .then(attachUserInfo)
@@ -30,7 +36,7 @@ exports.validateToken = (tokenName = "token", store = "body") => (req, res, next
 
 
   function verifyToken(){
-    return verify(req.body[tokenName], process.env.SECRET_KEY)
+    return verify(token, process.env.SECRET_KEY)
   }
 
   async function attachUserInfo(decodedToken){

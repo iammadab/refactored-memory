@@ -28,7 +28,7 @@ const loginUser = async (data) => {
     return { status: 403, code: "INVALID_PASSWORD" }
 
   // Sign a token for the user
-  const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: "1h" })
+  const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: "100h" })
 
   return { status: 200, code: "USER_LOGGED_IN", token }
 
