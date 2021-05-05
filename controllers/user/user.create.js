@@ -32,7 +32,7 @@ const createUser = async (data) => {
   const hashedPassword = await argon2.hash(password)
 
   // Create the user
-  const user = await userService.createUser({ fullname, email, password })
+  const user = await userService.createUser({ fullname, email, password: hashedPassword })
   if(!user || user.error)
     return { status: 500, code: "ERROR_CREATING_USER" }
 
